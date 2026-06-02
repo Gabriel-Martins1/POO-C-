@@ -20,12 +20,12 @@
 
 // class carrinho{
 //     constructor(){
-//         this.item = [];
+//         this.itens = [];
 //     }
 
 
 // adicionarProduto(Produto){
-//     this.item.push(Produto);
+//     this.itens.push(Produto);
 // }
 
 // calcularTotal(){
@@ -40,7 +40,7 @@
 // console.log(meuCarrinho)
 
 //imperativo
-// let alunos = [
+// let Alunos = [
 //   { nome:'Ana', nota: 8 }, { nome:'Bruno', nota: 6 },  { nome:'Carla', nota: 9 }
 // ];
 
@@ -49,11 +49,11 @@
 // let aprovados = [];
 
 
-// for (let i = 0; i < alunos.length; i++) {
-//     somaNotas += alunos[i].nota;
+// for (let i = 0; i < Alunos.length; i++) {
+//     somaNotas += Alunos[i].nota;
 
-//     if (alunos[i].nota >= 7) {
-//         aprovados.push(alunos[i])
+//     if (Alunos[i].nota >= 7) {
+//         aprovados.push(Alunos[i])
 //     }
 // }
 
@@ -61,35 +61,41 @@
 
 //funcional 
 
-class alunos {
+class Aluno {
     constructor(nome, nota){
-        this.nome
-        this.nota
+        this.nome = nome;
+        this.nota = nota
     }
-    
     estaAprovado(){
-    let aprovado = nota >=7 ? "aprovado" : "reprovado";
-    return
+        let aprovado = this.nota >= 7;
+        return aprovado
     }
 }
 
-class turma {
+class Turma {
+    constructor(listaDeAlunos) {
+        this.Alunos = listaDeAlunos;
+    }
+
     gerarRelatorio(){
-    return  this.aluno.filter((aluno) => aluno.estaAprovado())
+        return this.Alunos.filter((Aluno) => Aluno.estaAprovado())
     }
 }
+let listaAluno = []
 
-let Alunos = [];
-let maxAlunos = 5;
+let Alunos = [
+  { nome: "Flavio", nota: 3.5 },
+  { nome: "Patrick",  nota: 5.2 },
+  { nome: "Lucas",  nota: 7.0 },
+  { nome: "Robson",  nota: 6.9 },
+  { nome: "Mario", nota: 9.3 }
+];
 
-const turmaB = new Turma();
-turmaB.adicionarAluno(alunos("Carlos", 8));
-turmaB.adicionarAluno(alunos("Geraldo", 7));
-turmaB.adicionarAluno(alunos("Rivaldo", 5));
-turmaB.adicionarAluno(alunos("Roberto", 2));
-turmaB.adicionarAluno(alunos("Patricio", 10));
 
-for (let  i = 0; i < maxAlunos; i++) {
-    let novoAluno = new Aluno(`Aluno ${i + 1}`, 5 + i); 
-    turmaB.adicionarAluno(novoAluno);
+for (let i = 0; i < Alunos.length; i++) {
+    let novoAluno = new Aluno(Alunos[i].nome, Alunos[i].nota)
+    listaAluno.push(novoAluno);
 }
+
+const turmaB = new Turma(listaAluno);
+console.log("Alunos Aprovados:", turmaB.gerarRelatorio());;
