@@ -63,39 +63,38 @@
 
 class Aluno {
     constructor(nome, nota){
-        this.nome = nome;
-        this.nota = nota
+        this._nome = nome;
+        this._nota = nota;
     }
     estaAprovado(){
-        let aprovado = this.nota >= 7;
-        return aprovado
+        let aprovado = this._nota >= 7;
+        return aprovado;
     }
 }
-
 class Turma {
-    constructor(listaDeAlunos) {
-        this.Alunos = listaDeAlunos;
+    constructor(listaDeAlunos = []) {
+        this.alunos = listaDeAlunos; 
     }
 
     gerarRelatorio(){
-        return this.Alunos.filter((Aluno) => Aluno.estaAprovado())
+        return this.alunos.filter((aluno) => aluno.estaAprovado());
+    }
+
+    adicionarAluno(aluno){
+        if(typeof aluno.estaAprovado !== "function"){
+            throw new Error("O objeto não tem o método necessário");
+        }
+        this.alunos.push(aluno); 
     }
 }
-let listaAluno = []
+    
 
-let Alunos = [
-  { nome: "Flavio", nota: 3.5 },
-  { nome: "Patrick",  nota: 5.2 },
-  { nome: "Lucas",  nota: 7.0 },
-  { nome: "Robson",  nota: 6.9 },
-  { nome: "Mario", nota: 9.3 }
-];
+let cajuhub = new Turma();
+
+let addAluno = new Aluno("Vitor", 9);
+
+cajuhub.adicionarAluno(addAluno);
 
 
-for (let i = 0; i < Alunos.length; i++) {
-    let novoAluno = new Aluno(Alunos[i].nome, Alunos[i].nota)
-    listaAluno.push(novoAluno);
-}
-
-const turmaB = new Turma(listaAluno);
-console.log("Alunos Aprovados:", turmaB.gerarRelatorio());;
+console.log(cajuhub);
+console.log("Relatório de aprovados:", cajuhub.gerarRelatorio());
